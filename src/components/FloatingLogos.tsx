@@ -44,7 +44,7 @@ const FloatingLogos = () => {
       const windowHeight = window.innerHeight;
       
       if (rect.bottom > 0 && rect.top < windowHeight) {
-        const scrollProgress = (windowHeight - rect.top) * 0.15;
+        const scrollProgress = (windowHeight - rect.top) * 0.12;
         setScrollOffset(scrollProgress);
       }
     };
@@ -65,9 +65,10 @@ const FloatingLogos = () => {
     offset: number;
   }) => (
     <div 
-      className="flex items-center gap-16 will-change-transform py-4"
+      className="flex items-center gap-12 md:gap-16 will-change-transform py-3"
       style={{ 
-        transform: `translateX(${direction === "left" ? -offset - 300 : offset - 500}px)`,
+        transform: `translateX(${direction === "left" ? -offset - 200 : offset - 400}px)`,
+        transition: 'transform 0.1s ease-out',
       }}
       aria-hidden="true"
     >
@@ -76,7 +77,7 @@ const FloatingLogos = () => {
           key={`${logo.alt}-${index}`}
           src={logo.src}
           alt={logo.alt}
-          className="h-14 w-auto flex-shrink-0 opacity-20 grayscale"
+          className="h-10 md:h-14 w-auto flex-shrink-0 opacity-20 grayscale"
           loading="lazy"
         />
       ))}
