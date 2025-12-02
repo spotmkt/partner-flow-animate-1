@@ -24,13 +24,17 @@ const FloatingLogos = () => {
   const [scrollOffset, setScrollOffset] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Split logos into two rows
-  const row1Logos = logos.slice(0, 9);
-  const row2Logos = logos.slice(9);
+  // Split logos into 4 rows
+  const row1Logos = logos.slice(0, 5);
+  const row2Logos = logos.slice(5, 9);
+  const row3Logos = logos.slice(9, 13);
+  const row4Logos = logos.slice(13);
 
   // Duplicate logos for infinite scroll effect
-  const row1Extended = [...row1Logos, ...row1Logos, ...row1Logos];
-  const row2Extended = [...row2Logos, ...row2Logos, ...row2Logos];
+  const row1Extended = [...row1Logos, ...row1Logos, ...row1Logos, ...row1Logos];
+  const row2Extended = [...row2Logos, ...row2Logos, ...row2Logos, ...row2Logos];
+  const row3Extended = [...row3Logos, ...row3Logos, ...row3Logos, ...row3Logos];
+  const row4Extended = [...row4Logos, ...row4Logos, ...row4Logos, ...row4Logos];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,74 +43,76 @@ const FloatingLogos = () => {
       const rect = sectionRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
-      // Calculate how much the section is visible
-      const sectionTop = rect.top;
-      const sectionBottom = rect.bottom;
-      
-      // Only animate when section is in view
-      if (sectionBottom > 0 && sectionTop < windowHeight) {
-        const scrollProgress = (windowHeight - sectionTop) * 0.15;
+      if (rect.bottom > 0 && rect.top < windowHeight) {
+        const scrollProgress = (windowHeight - rect.top) * 0.15;
         setScrollOffset(scrollProgress);
       }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Initial call
+    handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const LogoRow = ({ 
+    logos, 
+    direction, 
+    offset 
+  }: { 
+    logos: typeof row1Extended; 
+    direction: "left" | "right"; 
+    offset: number;
+  }) => (
+    <div 
+      className="flex items-center gap-16 will-change-transform py-4"
+      style={{ 
+        transform: `translateX(${direction === "left" ? -offset - 300 : offset - 500}px)`,
+      }}
+      aria-hidden="true"
+    >
+      {logos.map((logo, index) => (
+        <img
+          key={`${logo.alt}-${index}`}
+          src={logo.src}
+          alt={logo.alt}
+          className="h-14 w-auto flex-shrink-0 opacity-20 grayscale"
+          loading="lazy"
+        />
+      ))}
+    </div>
+  );
+
   return (
     <section 
       ref={sectionRef}
-      className="relative w-full min-h-[500px] bg-white overflow-hidden py-20"
+      className="relative w-full bg-white overflow-hidden py-12"
     >
-      {/* Row 1 - moves left on scroll */}
-      <div 
-        className="flex items-center gap-12 mb-8 will-change-transform"
-        style={{ 
-          transform: `translateX(${-scrollOffset - 200}px)`,
-        }}
-        aria-hidden="true"
-      >
-        {row1Extended.map((logo, index) => (
-          <img
-            key={`row1-${index}`}
-            src={logo.src}
-            alt={logo.alt}
-            className="h-16 w-auto flex-shrink-0 opacity-20 grayscale"
-            loading="lazy"
-          />
-        ))}
+      {/* Logo rows container */}
+      <div className="relative">
+        <LogoRow logos={row1Extended} direction="left" offset={scrollOffset} />
+        <LogoRow logos={row2Extended} direction="right" offset={scrollOffset} />
+        <LogoRow logos={row3Extended} direction="left" offset={scrollOffset} />
+        <LogoRow logos={row4Extended} direction="right" offset={scrollOffset} />
       </div>
 
-      {/* Content overlay */}
-      <div className="relative z-10 container mx-auto px-4 text-center py-16">
-        <p className="text-sm uppercase tracking-widest text-muted-foreground mb-4">
-          nossos parceiros
-        </p>
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground max-w-4xl mx-auto leading-tight">
-          Juntos revolucionamos negócios e o mercado de crédito brasileiro
-        </h2>
-      </div>
-
-      {/* Row 2 - moves right on scroll */}
-      <div 
-        className="flex items-center gap-12 mt-8 will-change-transform"
-        style={{ 
-          transform: `translateX(${scrollOffset - 400}px)`,
-        }}
-        aria-hidden="true"
-      >
-        {row2Extended.map((logo, index) => (
-          <img
-            key={`row2-${index}`}
-            src={logo.src}
-            alt={logo.alt}
-            className="h-16 w-auto flex-shrink-0 opacity-20 grayscale"
-            loading="lazy"
-          />
-        ))}
+      {/* Content overlay with white transparent gradient */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div 
+          className="w-full h-full flex items-center justify-center"
+          style={{
+            background: "radial-gradient(ellipse 70% 60% at center, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 40%, rgba(255,255,255,0) 70%)"
+          }}
+        >
+          <div className="container mx-auto px-4 text-center pointer-events-auto">
+            <p className="text-sm uppercase tracking-widest text-muted-foreground mb-4">
+              nossos parceiros
+            </p>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground max-w-4xl mx-auto leading-tight">
+              Juntos revolucionamos negócios e o mercado de crédito brasileiro
+            </h2>
+          </div>
+        </div>
       </div>
     </section>
   );
