@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const logos = [
   { src: "/logos/parceiro-1.webp", alt: "Parceiro 1" },
@@ -20,125 +20,93 @@ const logos = [
   { src: "/logos/parceiro-17.webp", alt: "Parceiro 17" },
 ];
 
-interface FloatingLogo {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  opacity: number;
-  speedX: number;
-  speedY: number;
-  src: string;
-  alt: string;
-}
-
 const FloatingLogos = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const logosRef = useRef<FloatingLogo[]>([]);
-  const animationRef = useRef<number | null>(null);
+  const [scrollOffset, setScrollOffset] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Split logos into two rows
+  const row1Logos = logos.slice(0, 9);
+  const row2Logos = logos.slice(9);
+
+  // Duplicate logos for infinite scroll effect
+  const row1Extended = [...row1Logos, ...row1Logos, ...row1Logos];
+  const row2Extended = [...row2Logos, ...row2Logos, ...row2Logos];
 
   useEffect(() => {
-    if (!containerRef.current) return;
-
-    const container = containerRef.current;
-    const rect = container.getBoundingClientRect();
-
-    // Initialize floating logos with random positions
-    logosRef.current = logos.map((logo, index) => ({
-      id: index,
-      x: Math.random() * (rect.width - 120),
-      y: Math.random() * (rect.height - 60),
-      size: 80 + Math.random() * 60,
-      opacity: 0.15 + Math.random() * 0.2,
-      speedX: (Math.random() - 0.5) * 0.4,
-      speedY: (Math.random() - 0.5) * 0.4,
-      src: logo.src,
-      alt: logo.alt,
-    }));
-
-    const animate = () => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-
-      logosRef.current = logosRef.current.map((logo) => {
-        let newX = logo.x + logo.speedX;
-        let newY = logo.y + logo.speedY;
-        let newSpeedX = logo.speedX;
-        let newSpeedY = logo.speedY;
-
-        // Bounce off edges
-        if (newX <= 0 || newX >= rect.width - logo.size) {
-          newSpeedX = -newSpeedX;
-          newX = Math.max(0, Math.min(newX, rect.width - logo.size));
-        }
-        if (newY <= 0 || newY >= rect.height - logo.size) {
-          newSpeedY = -newSpeedY;
-          newY = Math.max(0, Math.min(newY, rect.height - logo.size));
-        }
-
-        return {
-          ...logo,
-          x: newX,
-          y: newY,
-          speedX: newSpeedX,
-          speedY: newSpeedY,
-        };
-      });
-
-      // Update DOM
-      const logoElements = container.querySelectorAll<HTMLImageElement>(".floating-logo");
-      logoElements.forEach((el, index) => {
-        const logo = logosRef.current[index];
-        if (logo) {
-          el.style.transform = `translate(${logo.x}px, ${logo.y}px)`;
-        }
-      });
-
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      
+      const rect = sectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // Calculate how much the section is visible
+      const sectionTop = rect.top;
+      const sectionBottom = rect.bottom;
+      
+      // Only animate when section is in view
+      if (sectionBottom > 0 && sectionTop < windowHeight) {
+        const scrollProgress = (windowHeight - sectionTop) * 0.15;
+        setScrollOffset(scrollProgress);
       }
     };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial call
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <section className="relative w-full min-h-[500px] bg-white overflow-hidden py-20">
-      {/* Floating logos container */}
-      <div
-        ref={containerRef}
-        className="absolute inset-0 pointer-events-none"
+    <section 
+      ref={sectionRef}
+      className="relative w-full min-h-[500px] bg-white overflow-hidden py-20"
+    >
+      {/* Row 1 - moves left on scroll */}
+      <div 
+        className="flex items-center gap-12 mb-8 will-change-transform"
+        style={{ 
+          transform: `translateX(${-scrollOffset - 200}px)`,
+        }}
         aria-hidden="true"
       >
-        {logos.map((logo, index) => (
+        {row1Extended.map((logo, index) => (
           <img
-            key={index}
+            key={`row1-${index}`}
             src={logo.src}
             alt={logo.alt}
-            className="floating-logo absolute will-change-transform transition-opacity duration-1000"
-            style={{
-              width: `${80 + Math.random() * 60}px`,
-              height: "auto",
-              opacity: 0.15 + Math.random() * 0.2,
-              transform: `translate(${Math.random() * 100}%, ${Math.random() * 100}%)`,
-            }}
+            className="h-16 w-auto flex-shrink-0 opacity-20 grayscale"
             loading="lazy"
           />
         ))}
       </div>
 
       {/* Content overlay */}
-      <div className="relative z-10 container mx-auto px-4 text-center">
+      <div className="relative z-10 container mx-auto px-4 text-center py-16">
         <p className="text-sm uppercase tracking-widest text-muted-foreground mb-4">
           nossos parceiros
         </p>
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground max-w-4xl mx-auto leading-tight">
           Juntos revolucionamos negócios e o mercado de crédito brasileiro
         </h2>
+      </div>
+
+      {/* Row 2 - moves right on scroll */}
+      <div 
+        className="flex items-center gap-12 mt-8 will-change-transform"
+        style={{ 
+          transform: `translateX(${scrollOffset - 400}px)`,
+        }}
+        aria-hidden="true"
+      >
+        {row2Extended.map((logo, index) => (
+          <img
+            key={`row2-${index}`}
+            src={logo.src}
+            alt={logo.alt}
+            className="h-16 w-auto flex-shrink-0 opacity-20 grayscale"
+            loading="lazy"
+          />
+        ))}
       </div>
     </section>
   );
