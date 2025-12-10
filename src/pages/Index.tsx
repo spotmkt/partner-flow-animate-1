@@ -1,19 +1,11 @@
-import HeroSection from "@/components/omnia/HeroSection";
-import FeaturesSection from "@/components/omnia/FeaturesSection";
-import ServicesSection from "@/components/omnia/ServicesSection";
-import StatsSection from "@/components/omnia/StatsSection";
-import ContactFormSection from "@/components/omnia/ContactFormSection";
-import Footer from "@/components/omnia/Footer";
+import FloatingLogos from "@/components/FloatingLogos";
 
 const Index = () => {
   return (
     <main className="min-h-screen bg-background">
-      <HeroSection />
-      <FeaturesSection />
-      <ServicesSection />
-      <StatsSection />
-      <ContactFormSection />
-      <Footer />
+      <div className="h-[50vh]" />
+      <FloatingLogos />
+      <div className="h-[100vh]" />
     </main>
   );
 };

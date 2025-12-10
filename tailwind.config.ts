@@ -57,12 +57,6 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        omnia: {
-          dark: "hsl(var(--omnia-dark))",
-          gold: "hsl(var(--omnia-gold))",
-          "light-teal": "hsl(var(--omnia-light-teal))",
-          gray: "hsl(var(--omnia-gray))",
-        },
       },
       borderRadius: {
         lg: "var(--radius)",
