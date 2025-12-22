@@ -69,12 +69,30 @@ const PaymentFlowDiagram = () => {
         />
       </motion.svg>
 
-      {/* Badge Inquilino NÃO pagou */}
+      {/* Badge Inquilino NÃO pagou - com ênfase */}
       <motion.div 
-        className="bg-up-burgundy text-up-cream px-4 py-2 rounded-full flex items-center gap-2 font-medium text-sm shadow-md"
+        className="bg-up-burgundy text-up-cream px-5 py-3 rounded-full flex items-center gap-2 font-bold text-base shadow-lg border-2 border-up-gold/50"
         variants={badgeVariants}
+        animate={{
+          scale: [1, 1.05, 1],
+          boxShadow: [
+            "0 4px 14px rgba(128, 45, 64, 0.4)",
+            "0 6px 20px rgba(128, 45, 64, 0.7)",
+            "0 4px 14px rgba(128, 45, 64, 0.4)",
+          ],
+        }}
+        transition={{
+          duration: 1.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
       >
-        <Zap className="w-4 h-4" />
+        <motion.div
+          animate={{ rotate: [0, -10, 10, -10, 0] }}
+          transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 1 }}
+        >
+          <Zap className="w-5 h-5" />
+        </motion.div>
         <span>Inquilino NÃO pagou</span>
       </motion.div>
 
