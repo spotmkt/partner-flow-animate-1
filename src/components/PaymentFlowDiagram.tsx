@@ -19,7 +19,7 @@ const PaymentFlowDiagram = () => {
     const runAnimation = async () => {
       while (true) {
         await controls.start("visible");
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 5000)); // 5s pausa
         await controls.start("hidden");
         await new Promise((resolve) => setTimeout(resolve, 500));
       }
