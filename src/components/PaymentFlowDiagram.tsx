@@ -1,5 +1,5 @@
 import { motion, useAnimation } from "framer-motion";
-import { Zap, FileText } from "lucide-react";
+import { Zap, FileText, Check } from "lucide-react";
 import { useFlowAnimation } from "@/hooks/useFlowAnimation";
 import upLogo from "@/assets/up-logo.svg";
 import { useEffect } from "react";
@@ -115,17 +115,78 @@ const PaymentFlowDiagram = () => {
         />
       </motion.svg>
 
-      {/* Card Pagamento em dia */}
+      {/* Card Imobiliária recebeu */}
+      <motion.div 
+        className="bg-card border border-green-500/30 rounded-xl p-5 flex items-start gap-4 w-full shadow-sm"
+        variants={cardVariants}
+      >
+        <div className="bg-green-500/10 p-3 rounded-lg shrink-0">
+          <Check className="w-8 h-8 text-green-500" />
+        </div>
+        <div>
+          <h3 className="font-semibold text-lg text-green-600">Imobiliária recebeu o pagamento EM DIA</h3>
+        </div>
+      </motion.div>
+
+      {/* Linha vertical pontilhada */}
+      <motion.svg 
+        width="2" 
+        height="40" 
+        className="my-0"
+        variants={lineVariants}
+      >
+        <motion.line 
+          x1="1" 
+          y1="0" 
+          x2="1" 
+          y2="40" 
+          stroke="hsl(var(--up-burgundy))" 
+          strokeWidth="2" 
+          strokeDasharray="4 4"
+          variants={lineVariants}
+        />
+      </motion.svg>
+
+      {/* Card Proprietário recebeu */}
+      <motion.div 
+        className="bg-card border border-green-500/30 rounded-xl p-5 flex items-start gap-4 w-full shadow-sm"
+        variants={cardVariants}
+      >
+        <div className="bg-green-500/10 p-3 rounded-lg shrink-0">
+          <Check className="w-8 h-8 text-green-500" />
+        </div>
+        <div>
+          <h3 className="font-semibold text-lg text-green-600">Proprietário recebeu o pagamento EM DIA</h3>
+        </div>
+      </motion.div>
+
+      {/* Linha vertical pontilhada */}
+      <motion.svg 
+        width="2" 
+        height="40" 
+        className="my-0"
+        variants={lineVariants}
+      >
+        <motion.line 
+          x1="1" 
+          y1="0" 
+          x2="1" 
+          y2="40" 
+          stroke="hsl(var(--up-burgundy))" 
+          strokeWidth="2" 
+          strokeDasharray="4 4"
+          variants={lineVariants}
+        />
+      </motion.svg>
+
+      {/* Card UP Estate */}
       <motion.div 
         className="bg-card border border-up-burgundy/20 rounded-xl p-5 flex items-center gap-4 w-full shadow-sm"
         variants={cardVariants}
       >
         <img src={upLogo} alt="UP Estate" className="w-16 h-16 shrink-0" />
         <div>
-          <h3 className="font-bold text-lg text-up-burgundy">Pagamento em dia</h3>
-          <p className="text-muted-foreground text-sm">
-            A UP Estate assume, garante o pagamento para a imobiliária e para o proprietário. Além de cuidar de todo o resto
-          </p>
+          <h3 className="font-bold text-lg text-up-burgundy">A UP Estate assume todo o resto</h3>
         </div>
       </motion.div>
 
