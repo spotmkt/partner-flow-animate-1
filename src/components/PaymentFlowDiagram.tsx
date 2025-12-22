@@ -1,7 +1,8 @@
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { Zap, FileText } from "lucide-react";
 import { useFlowAnimation } from "@/hooks/useFlowAnimation";
 import upLogo from "@/assets/up-logo.svg";
+import { useEffect } from "react";
 
 const PaymentFlowDiagram = () => {
   const { 
@@ -12,13 +13,26 @@ const PaymentFlowDiagram = () => {
     bottomBadgesContainerVariants,
   } = useFlowAnimation({ staggerDelay: 0.4, duration: 0.6 });
 
+  const controls = useAnimation();
+
+  useEffect(() => {
+    const runAnimation = async () => {
+      while (true) {
+        await controls.start("visible");
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await controls.start("hidden");
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      }
+    };
+    runAnimation();
+  }, [controls]);
+
   return (
     <motion.div 
       className="flex flex-col items-center w-full max-w-md mx-auto py-8"
       variants={containerVariants}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
+      animate={controls}
     >
       {/* Card Boleto */}
       <motion.div 
