@@ -16,15 +16,34 @@ const PaymentFlowDiagram = () => {
   const controls = useAnimation();
 
   useEffect(() => {
-    const runAnimation = async () => {
-      while (true) {
-        await controls.start("visible");
-        await new Promise((resolve) => setTimeout(resolve, 5000)); // 5s pausa
-        await controls.start("hidden");
-        await new Promise((resolve) => setTimeout(resolve, 500));
+    let cancelled = false;
+
+    const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    const run = async () => {
+      // garante reset antes do 1º ciclo (e evita ficar travado em "hidden")
+      controls.set("hidden");
+      await sleep(50);
+
+      while (!cancelled) {
+        try {
+          await controls.start("visible");
+          await sleep(5000); // pausa estática
+          await controls.start("hidden");
+          await sleep(500);
+        } catch {
+          // se alguma animação for interrompida, tenta retomar no próximo ciclo
+          await sleep(250);
+        }
       }
     };
-    runAnimation();
+
+    void run();
+
+    return () => {
+      cancelled = true;
+      controls.stop();
+    };
   }, [controls]);
 
   return (
@@ -117,14 +136,14 @@ const PaymentFlowDiagram = () => {
 
       {/* Card Imobiliária recebeu */}
       <motion.div 
-        className="bg-card border-l-4 border-l-green-500 border border-green-500/20 rounded-xl p-5 flex items-center gap-4 w-full shadow-sm"
+        className="bg-card border border-success-border border-l-4 border-l-success rounded-xl p-5 flex items-center gap-4 w-full shadow-sm"
         variants={cardVariants}
       >
-        <div className="bg-green-500/10 p-3 rounded-lg shrink-0">
-          <Check className="w-7 h-7 text-green-500" strokeWidth={3} />
+        <div className="bg-success-soft p-3 rounded-lg shrink-0 ring-1 ring-success-border">
+          <Check className="w-7 h-7 text-success" strokeWidth={3} />
         </div>
         <div>
-          <h3 className="font-bold text-base text-green-600">Imobiliária recebeu o pagamento EM DIA</h3>
+          <h3 className="font-bold text-base text-success">Imobiliária recebeu o pagamento EM DIA</h3>
         </div>
       </motion.div>
 
@@ -149,14 +168,14 @@ const PaymentFlowDiagram = () => {
 
       {/* Card Proprietário recebeu */}
       <motion.div 
-        className="bg-card border-l-4 border-l-green-500 border border-green-500/20 rounded-xl p-5 flex items-center gap-4 w-full shadow-sm"
+        className="bg-card border border-success-border border-l-4 border-l-success rounded-xl p-5 flex items-center gap-4 w-full shadow-sm"
         variants={cardVariants}
       >
-        <div className="bg-green-500/10 p-3 rounded-lg shrink-0">
-          <Check className="w-7 h-7 text-green-500" strokeWidth={3} />
+        <div className="bg-success-soft p-3 rounded-lg shrink-0 ring-1 ring-success-border">
+          <Check className="w-7 h-7 text-success" strokeWidth={3} />
         </div>
         <div>
-          <h3 className="font-bold text-base text-green-600">Proprietário recebeu o pagamento EM DIA</h3>
+          <h3 className="font-bold text-base text-success">Proprietário recebeu o pagamento EM DIA</h3>
         </div>
       </motion.div>
 

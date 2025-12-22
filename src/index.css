@@ -51,6 +51,12 @@ All colors MUST be HSL.
     --up-burgundy: 342 75% 35%;
     --up-gold: 45 97% 50%;
     --up-cream: 30 33% 97%;
+
+    /* Status colors */
+    --success: 142 71% 33%;
+    --success-foreground: 0 0% 100%;
+    --success-soft: 140 55% 94%;
+    --success-border: 141 34% 80%;
   }
 
   .dark {
@@ -89,6 +95,12 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Status colors */
+    --success: 142 60% 45%;
+    --success-foreground: 0 0% 100%;
+    --success-soft: 142 28% 14%;
+    --success-border: 142 25% 26%;
   }
 }
 

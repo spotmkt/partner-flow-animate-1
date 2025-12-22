@@ -57,6 +57,12 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(var(--success-foreground))",
+          soft: "hsl(var(--success-soft))",
+          border: "hsl(var(--success-border))",
+        },
         "up-burgundy": "hsl(var(--up-burgundy))",
         "up-gold": "hsl(var(--up-gold))",
         "up-cream": "hsl(var(--up-cream))",
