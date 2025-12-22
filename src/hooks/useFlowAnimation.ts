@@ -77,7 +77,6 @@ export const useFlowAnimation = (config: FlowAnimationConfig = {}) => {
       },
     },
   };
-
   const getDelayedVariants = (delay: number): Variants => ({
     hidden: { 
       opacity: 0, 

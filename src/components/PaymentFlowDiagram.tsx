@@ -117,14 +117,14 @@ const PaymentFlowDiagram = () => {
 
       {/* Card Imobiliária recebeu */}
       <motion.div 
-        className="bg-card border border-green-500/30 rounded-xl p-5 flex items-start gap-4 w-full shadow-sm"
+        className="bg-card border-l-4 border-l-green-500 border border-green-500/20 rounded-xl p-5 flex items-center gap-4 w-full shadow-sm"
         variants={cardVariants}
       >
         <div className="bg-green-500/10 p-3 rounded-lg shrink-0">
-          <Check className="w-8 h-8 text-green-500" />
+          <Check className="w-7 h-7 text-green-500" strokeWidth={3} />
         </div>
         <div>
-          <h3 className="font-semibold text-lg text-green-600">Imobiliária recebeu o pagamento EM DIA</h3>
+          <h3 className="font-bold text-base text-green-600">Imobiliária recebeu o pagamento EM DIA</h3>
         </div>
       </motion.div>
 
@@ -149,14 +149,14 @@ const PaymentFlowDiagram = () => {
 
       {/* Card Proprietário recebeu */}
       <motion.div 
-        className="bg-card border border-green-500/30 rounded-xl p-5 flex items-start gap-4 w-full shadow-sm"
+        className="bg-card border-l-4 border-l-green-500 border border-green-500/20 rounded-xl p-5 flex items-center gap-4 w-full shadow-sm"
         variants={cardVariants}
       >
         <div className="bg-green-500/10 p-3 rounded-lg shrink-0">
-          <Check className="w-8 h-8 text-green-500" />
+          <Check className="w-7 h-7 text-green-500" strokeWidth={3} />
         </div>
         <div>
-          <h3 className="font-semibold text-lg text-green-600">Proprietário recebeu o pagamento EM DIA</h3>
+          <h3 className="font-bold text-base text-green-600">Proprietário recebeu o pagamento EM DIA</h3>
         </div>
       </motion.div>
 
