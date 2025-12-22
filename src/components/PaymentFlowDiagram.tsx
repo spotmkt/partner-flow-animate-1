@@ -34,10 +34,25 @@ const PaymentFlowDiagram = () => {
       initial="hidden"
       animate={controls}
     >
-      {/* Card Boleto */}
+      {/* Card Boleto - começa no centro e sobe */}
       <motion.div 
         className="bg-card border border-up-burgundy/20 rounded-xl p-5 flex items-start gap-4 w-full shadow-sm"
-        variants={cardVariants}
+        variants={{
+          hidden: { 
+            opacity: 0, 
+            y: 150,
+            scale: 1.05
+          },
+          visible: { 
+            opacity: 1, 
+            y: 0,
+            scale: 1,
+            transition: {
+              duration: 0.8,
+              ease: [0.25, 0.46, 0.45, 0.94]
+            }
+          }
+        }}
       >
         <div className="bg-up-burgundy/10 p-3 rounded-lg shrink-0">
           <FileText className="w-8 h-8 text-up-burgundy" />
