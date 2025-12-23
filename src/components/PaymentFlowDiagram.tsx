@@ -72,7 +72,7 @@ const PaymentFlowDiagram = () => {
       {/* Linha vertical pontilhada */}
       <motion.svg 
         width="2" 
-        height="40" 
+        height="24" 
         className="my-0"
         variants={lineVariants}
       >
@@ -80,7 +80,7 @@ const PaymentFlowDiagram = () => {
           x1="1" 
           y1="0" 
           x2="1" 
-          y2="40" 
+          y2="24" 
           stroke="hsl(var(--up-burgundy))" 
           strokeWidth="2" 
           strokeDasharray="4 4"
@@ -111,7 +111,7 @@ const PaymentFlowDiagram = () => {
       {/* Linha vertical pontilhada */}
       <motion.svg 
         width="2" 
-        height="40" 
+        height="24" 
         className="my-0"
         variants={lineVariants}
       >
@@ -119,7 +119,7 @@ const PaymentFlowDiagram = () => {
           x1="1" 
           y1="0" 
           x2="1" 
-          y2="40" 
+          y2="24" 
           stroke="hsl(var(--up-burgundy))" 
           strokeWidth="2" 
           strokeDasharray="4 4"
@@ -129,21 +129,21 @@ const PaymentFlowDiagram = () => {
 
       {/* Card Imobiliária recebeu */}
       <motion.div 
-        className="bg-card border border-success-border border-l-4 border-l-success rounded-lg sm:rounded-xl p-4 sm:p-5 flex items-center gap-3 sm:gap-4 w-full"
+        className="bg-card border border-success-border rounded-lg sm:rounded-xl p-4 sm:p-5 flex items-center gap-3 sm:gap-4 w-full"
         variants={cardVariants}
       >
         <div className="bg-success-soft p-2.5 sm:p-3 rounded-lg shrink-0 ring-1 ring-success-border">
           <Check className="w-6 h-6 sm:w-7 sm:h-7 text-success" strokeWidth={3} />
         </div>
         <div>
-          <h3 className="font-bold text-sm sm:text-base text-success">Imobiliária recebeu o pagamento EM DIA</h3>
+          <h3 className="font-bold text-sm sm:text-base text-success">Imobiliária recebeu o<br />pagamento EM DIA</h3>
         </div>
       </motion.div>
 
       {/* Linha vertical pontilhada */}
       <motion.svg 
         width="2" 
-        height="40" 
+        height="24" 
         className="my-0"
         variants={lineVariants}
       >
@@ -151,7 +151,7 @@ const PaymentFlowDiagram = () => {
           x1="1" 
           y1="0" 
           x2="1" 
-          y2="40" 
+          y2="24" 
           stroke="hsl(var(--up-burgundy))" 
           strokeWidth="2" 
           strokeDasharray="4 4"
@@ -161,21 +161,21 @@ const PaymentFlowDiagram = () => {
 
       {/* Card Proprietário recebeu */}
       <motion.div 
-        className="bg-card border border-success-border border-l-4 border-l-success rounded-lg sm:rounded-xl p-4 sm:p-5 flex items-center gap-3 sm:gap-4 w-full"
+        className="bg-card border border-success-border rounded-lg sm:rounded-xl p-4 sm:p-5 flex items-center gap-3 sm:gap-4 w-full"
         variants={cardVariants}
       >
         <div className="bg-success-soft p-2.5 sm:p-3 rounded-lg shrink-0 ring-1 ring-success-border">
           <Check className="w-6 h-6 sm:w-7 sm:h-7 text-success" strokeWidth={3} />
         </div>
         <div>
-          <h3 className="font-bold text-sm sm:text-base text-success">Proprietário recebeu o pagamento EM DIA</h3>
+          <h3 className="font-bold text-sm sm:text-base text-success">Proprietário recebeu o<br />pagamento EM DIA</h3>
         </div>
       </motion.div>
 
       {/* Linha vertical pontilhada */}
       <motion.svg 
         width="2" 
-        height="40" 
+        height="24" 
         className="my-0"
         variants={lineVariants}
       >
@@ -183,7 +183,7 @@ const PaymentFlowDiagram = () => {
           x1="1" 
           y1="0" 
           x2="1" 
-          y2="40" 
+          y2="24" 
           stroke="hsl(var(--up-burgundy))" 
           strokeWidth="2" 
           strokeDasharray="4 4"
@@ -205,9 +205,9 @@ const PaymentFlowDiagram = () => {
       {/* SVG com linhas diagonais */}
       <motion.svg 
         width="100%" 
-        height="50" 
+        height="36" 
         className="my-0 w-full max-w-[280px] sm:max-w-[300px]"
-        viewBox="0 0 300 50"
+        viewBox="0 0 300 36"
         preserveAspectRatio="xMidYMid meet"
         variants={lineVariants}
       >
@@ -216,7 +216,7 @@ const PaymentFlowDiagram = () => {
           x1="150" 
           y1="0" 
           x2="150" 
-          y2="50" 
+          y2="36" 
           stroke="hsl(var(--up-burgundy))" 
           strokeWidth="2" 
           strokeDasharray="4 4"
@@ -227,7 +227,7 @@ const PaymentFlowDiagram = () => {
           x1="150" 
           y1="0" 
           x2="50" 
-          y2="50" 
+          y2="36" 
           stroke="hsl(var(--up-burgundy))" 
           strokeWidth="2" 
           strokeDasharray="4 4"
@@ -238,7 +238,7 @@ const PaymentFlowDiagram = () => {
           x1="150" 
           y1="0" 
           x2="250" 
-          y2="50" 
+          y2="36" 
           stroke="hsl(var(--up-burgundy))" 
           strokeWidth="2" 
           strokeDasharray="4 4"
